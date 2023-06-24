@@ -280,13 +280,3 @@ fig.update_layout(
 # Display the bar plot
 st.plotly_chart(fig)
 
-# Save the entire dashboard as a static HTML file
-static_html = st.experimental_get_query_params().get('static')
-if static_html:
-    save_path = "C:\\Users\\159om\\OneDrive\\Desktop\\" + static_html[0]
-    iframe_html = st._get_streamlit_html()
-    with open(save_path, 'w', encoding='utf-8') as file:
-        file.write(iframe_html)
-
-# Stop the Streamlit app
-st.stop()
