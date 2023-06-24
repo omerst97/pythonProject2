@@ -3,17 +3,17 @@ import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
-from kaggle.api.kaggle_api_extended import KaggleApi
-import os
+# from kaggle.api.kaggle_api_extended import KaggleApi
+# # import os
+# #
+# # os.environ['KAGGLE_USERNAME'] = 'shemtoo@post.bgu.ac.il'
+# # os.environ['KAGGLE_KEY'] = 'Oo25041997'
+# api = KaggleApi()
+# api.authenticate()
 
-os.environ['KAGGLE_USERNAME'] = 'shemtoo@post.bgu.ac.il'
-os.environ['KAGGLE_KEY'] = 'Oo25041997'
-api = KaggleApi()
-api.authenticate()
+# df = pd.read_csv('kaggle datasets download -d ulrikthygepedersen/co2-emissions-by-country')
 
-df = pd.read_csv('kaggle datasets download -d ulrikthygepedersen/co2-emissions-by-country')
-
-# df = pd.read_csv('C:\\Users\\159om\\Downloads\\co2_emissions_kt_by_country(1).csv')
+df = pd.read_csv('co2_emissions_kt_by_country(1).csv')
 asia = df[df['country_name'].str.contains('Asia')]['country_name'].unique()
 europe = df[df['country_name'].str.contains('Euro')]['country_name'].unique()
 caribbean = df[df['country_name'].str.contains('Caribbean')]['country_name'].unique()
