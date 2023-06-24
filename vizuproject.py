@@ -173,7 +173,7 @@ import plotly.graph_objects as go
 from sklearn.linear_model import LinearRegression
 
 # Load the data
-df = pd.read_csv('C:\\Users\\159om\\Downloads\\co2_emissions_kt_by_country(1).csv')
+df = pd.read_csv('co2_emissions_kt_by_country(1).csv')
 
 # Filter the data for the relevant columns and rows (until 1990)
 filtered_df = df[df['year'] <= 1990][['country_name', 'year', 'value']]
