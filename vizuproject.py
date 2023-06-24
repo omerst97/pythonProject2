@@ -1,10 +1,16 @@
 import numpy as np
-import pandas as pd
 import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
+import pandas as pd
+from kaggle.api.kaggle_api_extended import KaggleApi
 
-df = pd.read_csv('C:\\Users\\159om\\Downloads\\co2_emissions_kt_by_country(1).csv')
+api = KaggleApi()
+api.authenticate()
+
+df = pd.read_csv('https://www.kaggle.com/datasets/ulrikthygepedersen/co2-emissions-by-country/download?datasetVersionNumber=1')
+
+# df = pd.read_csv('C:\\Users\\159om\\Downloads\\co2_emissions_kt_by_country(1).csv')
 asia = df[df['country_name'].str.contains('Asia')]['country_name'].unique()
 europe = df[df['country_name'].str.contains('Euro')]['country_name'].unique()
 caribbean = df[df['country_name'].str.contains('Caribbean')]['country_name'].unique()
