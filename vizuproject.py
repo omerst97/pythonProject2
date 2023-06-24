@@ -225,8 +225,8 @@ pivot_df['actual_value'] = actual_values
 selected_df = pivot_df[pivot_df['country_name'].isin(selected_countries)]
 st.subheader('UNFCCC Agreement VS Reality')
 st.text('This graph shows the impact of the United Nations Framework Convention on Climate '+"\n"+'Change (UNFCCC). '
-        ' This committee, signed in year 1990 by 154 countries. each country '+"\n"+'sighed that in year '
-        '@ its emissions will not exceed the emissions in year 1990. '+"\n"+
+        ' This committee, signed in year 1990 by 154 countries. each country '+"\n"+'sighed that '
+        ' its emissions will not exceed the emissions in year 1990. '+"\n"+
         'We used a machine learning algorithm to predict the emissions of each country in the '+"\n"+''
         'year 2020 if it had continued on a similar trend from 1960 to 1990. Based on this,'+"\n"+
         ' we can estimate the impact of this committee on the emissions level of different '+"\n"+'countries.'
