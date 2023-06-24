@@ -4,7 +4,10 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 from kaggle.api.kaggle_api_extended import KaggleApi
+import os
 
+os.environ['KAGGLE_USERNAME'] = 'shemtoo@post.bgu.ac.il'
+os.environ['KAGGLE_KEY'] = 'Oo25041997'
 api = KaggleApi()
 api.authenticate()
 
