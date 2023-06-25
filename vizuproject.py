@@ -52,20 +52,21 @@ events = [
 # selected_countries = st.sidebar.multiselect('Select Countries/continents', df_country['country_name'].unique(),
 #                                             default=['United States', 'China', 'Russian Federation'])
 selected_countries=[]
+st.sidebar.title("Menu to control the second and the third graphs:")
 
 # Button to select all countries
-selected_option = st.sidebar.radio('Select option', [ 'countries','countries groups', 'income type'])
+selected_option = st.sidebar.radio('Select division to explore:', [ 'countries','countries groups', 'income type'])
 
 # Check the selected option and display corresponding selection inputs
 if selected_option == 'countries':
-    selected_countries = st.sidebar.multiselect('Select countries', df_country['country_name'].unique(),
+    selected_countries = st.sidebar.multiselect('Select countries:', df_country['country_name'].unique(),
                                                 default=['United States', 'China', 'Russian Federation','Japan','United Kingdom','Ukraine','Canada','Israel','Indonesia'])
 
 elif selected_option == 'countries groups':
-    selected_countries = st.sidebar.multiselect('Select countries groups', ['World', 'Central Europe and the Baltics', 'North America', 'South Asia', 'OECD members', 'Arab World'],
+    selected_countries = st.sidebar.multiselect('Select countries groups:', ['World', 'Central Europe and the Baltics', 'North America', 'South Asia', 'OECD members', 'Arab World',"East Asia & Pacific (IDA & IBRD countries)","Europe & Central Asia (IDA & IBRD countries)","Middle East & North Africa (IDA & IBRD countries)"],
                                                 default=['Central Europe and the Baltics', 'North America', 'South Asia', 'OECD members', 'Arab World'])
 elif selected_option == 'income type':
-    selected_countries = st.sidebar.multiselect('Select income types', ['Middle income','Low income','High income'],
+    selected_countries = st.sidebar.multiselect('Select income types:', ['Middle income','Low income','High income'],
                                                 default=['Middle income','Low income','High income'])
 # Button to select all countries
 # select_all_countries = st.sidebar.button('Select All Countries')
@@ -74,7 +75,7 @@ elif selected_option == 'income type':
 # ['United States', 'China', 'Russian Federation','Japan','United Kingdom','Ukraine','Canada','Israel']
 
 # Create a multiselect dropdown menu in the sidebar for event selection
-selected_events = st.sidebar.multiselect('Select Events', [event['name'] for event in events]
+selected_events = st.sidebar.multiselect('Select Events:', [event['name'] for event in events]
                                          , default=['China Joins World Trade Organization','Dissolution Of Soviet Union'])
 
 # Filter the DataFrame based on the selected countries
@@ -96,7 +97,7 @@ fig2 = px.choropleth(df_country, locations="country_code",
                      color="value",
                      hover_name="country_name",
                      hover_data=['year', 'country_name', 'value'],
-                     color_continuous_scale=px.colors.sequential.dense,
+                     color_continuous_scale="reds",
                      range_color=(0, 10000000))  # Set the color range
 
 # Display the second graph
@@ -152,13 +153,13 @@ for event in events:
     j += 1
 
 # Update hover mode
-fig1.update_layout(title='Explore countries and regions trends CO2 Emissions and see the effect of global events',
+fig1.update_layout(title='Explore countries and regions trends CO2 Emissions and the effect of global events',
                     hovermode='closest',
-                   title_font=dict(size=20)
+                   title_font=dict(size=18)
                    )
 
 # Set the labels for x-axis and y-axis for the first graph
-fig1.update_layout(xaxis=dict(title='Year'), yaxis=dict(title='CO2 Emission'))
+fig1.update_layout(xaxis=dict(title='Year'), yaxis=dict(title='CO2 Emission(KT)'))
 
 # Display the first graph
 st.subheader('CO2 Emission Trends')
@@ -227,10 +228,10 @@ st.subheader('UNFCCC Agreement VS Reality')
 st.text('This graph shows the impact of the United Nations Framework Convention on Climate '+"\n"+'Change (UNFCCC). '
         ' This committee, signed in year 1990 by 154 countries. each country '+"\n"+'sighed that '
         ' its emissions will not exceed the emissions in year 1990. '+"\n"+
-        'We used a machine learning algorithm to predict the emissions of each country in the '+"\n"+''
+        'We used a machine learning algorithm to predict the emissions of each country in the'+"\n"+''
         'year 2020 if it had continued on a similar trend from 1960 to 1990. Based on this,'+"\n"+
-        ' we can estimate the impact of this committee on the emissions level of different '+"\n"+'countries.'
-'The following graph allows us to investigate the impact of the committee.')
+        'we can estimate the impact of this committee on the emissions level of different '+"\n"+'countries.'
+'The following graph allows us to investigate the impact of the committee \non all countries and regions around the world.')
 # Add the 1990 value for the latest year
 fig = go.Figure()
 
@@ -239,7 +240,7 @@ fig.add_trace(go.Bar(
     y=selected_df['actual_value'],
     name='CO2 emmision at 1990',
     marker=dict(color='#ffee65'),
-    text=selected_df['actual_value'].astype(int),
+    text=(selected_df['actual_value'] / 1000000).round(1).astype(str) + 'M',  # Format the text labels in millions
     textposition='auto'
 ))
 
@@ -262,7 +263,7 @@ fig.add_trace(go.Bar(
     y=selected_df['2019'],
     name='2019 reality',
     marker=dict(color='#8bd3c7'),
-    text=selected_df['2019'].astype(int),
+    text=(selected_df['2019'] / 1000000).round(1).astype(str) + 'M',  # Format the text labels in millions
     textposition='auto'
 ))
 
@@ -274,7 +275,7 @@ fig.add_trace(go.Bar(
     y=selected_df['predicted_value'].apply(lambda x: x[0]),  # Unpack the predicted values
     name='Prediction of 2019 without the UFNCCC ',
     marker=dict(color='#fd7f6f'),
-    text=selected_df['predicted_value'].apply(lambda x: int(x[0])),  # Unpack the predicted values
+    text=(selected_df['predicted_value'].apply(lambda x: int(x[0])) / 1000000).round(1).astype(str) + 'M',  # Format the text labels in millions
     textposition='auto'
 ))
 # Update the layout of the bar plot
