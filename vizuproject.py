@@ -289,3 +289,4 @@ fig.update_layout(
 # Display the bar plot
 st.plotly_chart(fig)
 
+
